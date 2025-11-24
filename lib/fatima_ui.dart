@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 
 class MazeUi extends StatelessWidget {
   final int gridSize;
-final List<List<int>> grid;
-final int moves;
-final int mistakes;
-final Function(int rowChange , int colChange) onMove;
-final VoidCallback onReset;
-final Function(int newSize) onGridSizeChange;
-  const MazeUi({super.key ,required this.gridSize,
+  final List<List<int>> grid;
+  final int moves;
+  final int mistakes;
+  final Function(int rowChange, int colChange) onMove;
+  final VoidCallback onReset;
+  final Function(int newSize) onGridSizeChange;
+
+  const MazeUi({super.key, required this.gridSize,
     required this.grid,
     required this.moves,
     required this.mistakes,
@@ -120,7 +121,8 @@ final Function(int newSize) onGridSizeChange;
 
     );
   }
-Widget buildTile(int tile){
+
+Widget buildTile(int tile) {
   // player
   if (tile == 4) {
     return Container(
@@ -142,7 +144,73 @@ Widget buildTile(int tile){
       border: Border.all(color: const Color(0xff6bb397), width: 0.5),
     ),
   );
+}
+Widget tileIcon(){
+  return Container(
+      margin: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: const Color(0xff2c2c2c),
+        border: Border.all(color: const Color(0xff6bb397), width: 0.5),
+      ),
+      child: Center(
+          child: Text(
+            emoji,
+            style: const TextStyle(fontSize: 20),
+
+          )
+      ;
+          // helper: icon tile (key, exit, traps)
+          Widget iconTile(IconData icon, Color color) {
+  return Container(
+  margin: const EdgeInsets.all(2),
+  decoration: BoxDecoration(
+  color: const Color(0xff2c2c2c),
+  border: Border.all(color: const Color(0xff6bb397), width: 0.5),
+  ),
+  child: Center(
+  child: Icon(icon, color: color, size: 20),
+  ),
+  );
+  }
+      Widget buildTile(int tile) {
+    // player
+    if (tile == 4) {
+      return Container(
+        margin: const EdgeInsets.all(2),
+        decoration: const BoxDecoration(
+          color: Color(0xff6bb397),
+          shape: BoxShape.circle,
+        ),
+      );
+    }
+
+    // kill trap
+    if (tile == 5) return tileIcon('💀');
+
+    // return trap
+    if (tile == 6) return iconTile(Icons.refresh, const Color(0xff6bb397));
+
+    // scramble trap
+    if (tile == 7) return iconTile(Icons.shuffle, const Color(0xffe6c34d));
+
+    // key
+    if (tile == 2) return iconTile(Icons.vpn_key, const Color(0xffe6c34d));
+
+    // exit
+    if (tile == 3) return iconTile(Icons.flag, const Color(0xff6bb397));
+
+    // walls + empty
+    return Container(
+      margin: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: (tile == 1) ? const Color(0xff444444) : const Color(0xff2c2c2c),
+        border: Border.all(color: const Color(0xff6bb397), width: 0.5),
+      ),
+    );
+  }
+
 
 }
-  }
+}
+
 
