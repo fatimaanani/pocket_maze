@@ -118,6 +118,8 @@ final Function(int newSize) onGridSizeChange;
 
 
     );
-
+Widget buildTile(int tile){
+  return Container();
+}
   }
 }
