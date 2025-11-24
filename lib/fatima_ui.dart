@@ -55,14 +55,13 @@ final Function(int newSize) onGridSizeChange;
           width: 320,
           height: 320,
           child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
             itemCount: gridSize * gridSize,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: gridSize,
             ),
             itemBuilder: (_, index) {
-              int row = index ~/ gridSize;
-              int column = index % gridSize;
+              int row = index ~/ gridSize; //int division
+              int column = index % gridSize; // hay l % for how far inside the row you are
               return buildTile(grid[row][column]);
             },
           ),
