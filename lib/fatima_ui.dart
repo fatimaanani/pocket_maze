@@ -59,7 +59,7 @@ class MazeUi extends StatelessWidget {
             ),
           ),
 
-          Expanded(child:
+          Expanded(child: //for the overflow
           Padding(
             padding: const EdgeInsets.all(10),
             child: SizedBox(
