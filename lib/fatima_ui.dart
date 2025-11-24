@@ -23,7 +23,7 @@ final Function(int newSize) onGridSizeChange;
     backgroundColor: const Color(0xff1e1e1e),
     appBar: AppBar(
     title: const Text(
-    'Maze Escape Mini Game',
+    'Pocket Maze',
     style: TextStyle(color: Color(0xff6bb397)),
     ),
     centerTitle: true,
@@ -35,6 +35,7 @@ final Function(int newSize) onGridSizeChange;
     children: [Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: DropdownMenu(
+        textStyle: TextStyle(color: Color(0xff6bb397)),
         width: 150,
         initialSelection: gridSize,
         onSelected: (value) {
@@ -48,8 +49,30 @@ final Function(int newSize) onGridSizeChange;
         ],
       ),
     ),
+      Padding(
+        padding: const EdgeInsets.all(10),
+        child: SizedBox(
+          width: 320,
+          height: 320,
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: gridSize * gridSize,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridSize,
+            ),
+            itemBuilder: (_, index) {
+              int row = index ~/ gridSize;
+              int column = index % gridSize;
+              return buildTile(grid[row][column]);
+            },
+          ),
+        ),
+      ),
+
     ],
     ),
+
     );
+
   }
 }
