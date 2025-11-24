@@ -64,7 +64,9 @@ class _MazePageState extends State<MazePage> {
 
     fixedWalls(); // manual walls we placed
     randomWalls(); // extra random walls
-    trapsPlacing(); // key + exit + traps kellon
+    trapsPlacing(); // traps kellon
+    randomTiles(2); // key
+    randomTiles(3); // exit
 
     // to prevent random walls ny mistkee
     if (gridSize > 1) {
@@ -234,9 +236,6 @@ class _MazePageState extends State<MazePage> {
     placeTrap(5, trapType); // kill traps
     placeTrap(6, trapType); // return traps
     placeTrap(7, trapType); // scramble traps
-
-    randomTiles(2); // key
-    randomTiles(3); // exit
   }
 
   // trap placing function
