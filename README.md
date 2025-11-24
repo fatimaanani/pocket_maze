@@ -1,16 +1,12 @@
 # pocket_maze
 
-A new Flutter project.
+Pocket Maze is a small Flutter game built around a simple idea: move through a tiny grid, grab the key, dodge traps, and reach the exit before messing up too many times. The maze changes every round, so the player never sees the same layout twice.
 
-## Getting Started
+## game highlights
+Random maze layout every reset
 
-This project is a starting point for a Flutter application.
+Easy movement (buttons + keyboard arrows)
 
-A few resources to get you started if this is your first Flutter project:
+Different trap types
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Simple pop-ups for win/lose and a quick restart
