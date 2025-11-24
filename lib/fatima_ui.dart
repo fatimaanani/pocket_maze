@@ -20,14 +20,20 @@ final Function(int newSize) onGridSizeChange;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1e1e1e),
-      appBar: AppBar(
-        title: Text("Pocket Maze" ,
-        style: TextStyle(color: Color(0xff06402b), //change color later eza shi
-        ),
-        ),
-
-      ),
+    backgroundColor: const Color(0xff1e1e1e),
+    appBar: AppBar(
+    title: const Text(
+    'Maze Escape Mini Game',
+    style: TextStyle(color: Color(0xff6bb397)),
+    ),
+    centerTitle: true,
+    backgroundColor: const Color(0xff1e1e1e),
+    foregroundColor: const Color(0xff6bb397),
+    ),
+    body: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [],
+    ),
     );
   }
 }
