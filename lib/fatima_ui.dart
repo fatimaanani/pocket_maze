@@ -67,9 +67,55 @@ final Function(int newSize) onGridSizeChange;
           ),
         ),
       ),
+      const SizedBox(height: 20),
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Moves: $moves   ',
+              style: TextStyle(color: Color(0xff6bb397), fontSize: 18)),
+          Text('Mistakes: $mistakes',
+              style: TextStyle(color: Color(0xff6bb397), fontSize: 18)),
+        ],
+      ),
+
+      const SizedBox(height: 20),
+
+      Column(
+        children: [
+          ElevatedButton(onPressed: () => onMove(-1, 0),
+              child: Icon(Icons.arrow_upward)),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () => onMove(0, -1),
+                  child: Icon(Icons.arrow_back)),
+              SizedBox(width: 20),
+              ElevatedButton(onPressed: () => onMove(0, 1),
+                  child: Icon(Icons.arrow_forward)),
+            ],
+          ),
+
+          ElevatedButton(
+            onPressed: () => onMove(1, 0),
+            child: Icon(Icons.arrow_downward),
+          ),
+        ],
+      ),
+
+      const SizedBox(height: 20),
+
+      ElevatedButton(
+        onPressed: onReset,
+        child: Text('Restart'),
+      ),
+
 
     ],
+
     ),
+
 
     );
 

@@ -323,9 +323,13 @@ class _MazePageState extends State<MazePage> {
         if (event is KeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
             movePlayer(-1, 0);
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) movePlayer(1, 0);
-          else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) movePlayer(0, -1);
-          else if (event.logicalKey == LogicalKeyboardKey.arrowRight) movePlayer(0, 1);
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {movePlayer(1, 0);}
+          else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+            movePlayer(0, -1);
+          }
+          else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+            movePlayer(0, 1);
+          }
         }
       },
 
