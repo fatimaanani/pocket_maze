@@ -23,11 +23,23 @@ class MazeUi extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff1e1e1e),
       appBar: AppBar(
-        title: const Text(
-          'Pocket Maze',
-          style: TextStyle(color: Color(0xff6bb397)),
+        title: Row(
+          children: [
+          Image.asset(
+          'assets/logoo.jpg',
+          height: 55,
         ),
-        centerTitle: true,
+          const SizedBox(width: 12),
+          const Text(
+            'Pocket Maze',
+            style: TextStyle(
+              color: Color(0xff6bb397),
+              fontSize: 22,
+            ),
+
+          ),
+          ],
+        ),
         backgroundColor: const Color(0xff1e1e1e),
         foregroundColor: const Color(0xff6bb397),
       ),

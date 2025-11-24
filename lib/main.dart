@@ -25,13 +25,12 @@ class MazePage extends StatefulWidget {
 }
 
 class _MazePageState extends State<MazePage> {
-
   int gridSize = 8;
-  List<List<int>> grid = [];          // hayde maze map
+  List<List<int>> grid = []; // hayde maze map
 
   int moves = 0;
   int mistakes = 0;
-  bool hasKey = false;                // player key eza ma3o aw no
+  bool hasKey = false; // player key eza ma3o aw no
 
   final Random random = Random();
   final FocusNode keyboardFocus = FocusNode();
@@ -39,23 +38,22 @@ class _MazePageState extends State<MazePage> {
   @override
   void initState() {
     super.initState();
-    resetGame();                      // build maze on load
+    resetGame(); // build maze on load
   }
 
   // rebuild the maze from zero every time
   void resetGame() {
-
     // start with an empty grid
     grid = List.generate(
       gridSize,
-          (row) => List.generate(gridSize, (column) => 0),
+      (row) => List.generate(gridSize, (column) => 0),
     );
 
     moves = 0;
     mistakes = 0;
     hasKey = false;
 
-    grid[0][0] = 4;                   // start position lal player
+    grid[0][0] = 4; // start position lal player
 
     // safe zone kermel player moves safely
     if (gridSize > 1) {
@@ -64,9 +62,9 @@ class _MazePageState extends State<MazePage> {
       grid[1][1] = 0;
     }
 
-    fixedWalls();                     // manual walls we placed
-    randomWalls();                    // extra random walls
-    trapsPlacing();                   // key + exit + traps kellon
+    fixedWalls(); // manual walls we placed
+    randomWalls(); // extra random walls
+    trapsPlacing(); // key + exit + traps kellon
 
     // to prevent random walls ny mistkee
     if (gridSize > 1) {
@@ -80,7 +78,6 @@ class _MazePageState extends State<MazePage> {
 
   //tiles w movement
   void movePlayer(int rowChange, int colChange) {
-
     // find current player location
     int currentRow = 0;
     int currentColumn = 0;
@@ -98,7 +95,10 @@ class _MazePageState extends State<MazePage> {
     int newColumn = currentColumn + colChange;
 
     // block moves outside the maze
-    if (newRow < 0 || newRow >= gridSize || newColumn < 0 || newColumn >= gridSize) {
+    if (newRow < 0 ||
+        newRow >= gridSize ||
+        newColumn < 0 ||
+        newColumn >= gridSize) {
       return;
     }
 
@@ -231,12 +231,12 @@ class _MazePageState extends State<MazePage> {
     if (gridSize == 10) trapType = 3;
     if (gridSize == 12) trapType = 4;
 
-    placeTrap(5, trapType);   // kill traps
-    placeTrap(6, trapType);   // return traps
-    placeTrap(7, trapType);   // scramble traps
+    placeTrap(5, trapType); // kill traps
+    placeTrap(6, trapType); // return traps
+    placeTrap(7, trapType); // scramble traps
 
-    randomTiles(2);           // key
-    randomTiles(3);           // exit
+    randomTiles(2); // key
+    randomTiles(3); // exit
   }
 
   // trap placing function
@@ -269,6 +269,59 @@ class _MazePageState extends State<MazePage> {
     }
   }
 
+  List<int> findTile(int tileType) { //find tile location
+    for (int row = 0; row < gridSize; row++) {
+      for (int column = 0; column < gridSize; column++) {
+        if (grid[row][column] == tileType) return [row, column]; //hay finds it
+      }
+    }
+    return [-1, -1]; // if not found
+  }
+// check if player can walk on this tile
+  bool canMove(int tile) {
+    if (tile == 1) return false; // wall
+    if (tile == 5) return false; // kill trap
+    if (tile == 6) return false; // return trap
+    return true; // walkable
+  }
+  //checks eza fii a clear path from player to key to exit
+  bool validPath(int startRow, int startColumn, int targetTile) {
+    List<List<bool>> walkedTiles = List.generate(
+      gridSize,
+          (_) => List.generate(gridSize, (_) => false),
+    ); // visited tiles
+    List<List<int>> queue = [];
+    queue.add([startRow, startColumn]); // start point
+    walkedTiles[startRow][startColumn] = true;
+    List<List<int>> directions = [
+      [-1, 0], // up
+      [1, 0],  // down
+      [0, -1], // left
+      [0, 1],  // right
+    ];
+    while (queue.isNotEmpty) {
+      List<int> current = queue.removeAt(0);
+      int row = current[0];
+      int column = current[1];
+      if (grid[row][column] == targetTile) return true; //reachedf a clear path
+
+      for (var directions in directions) {
+        int nextRow = row + directions[0];
+        int nextColumn = column + directions[1];
+      // no clear path, out of bounds
+    if (nextRow < 0 || nextRow >= gridSize || nextColumn < 0 || nextColumn >= gridSize) {
+          continue;
+        }
+        // walkable + not visited
+        if (!walkedTiles[nextRow][nextColumn] &&
+            canMove(grid[nextRow][nextColumn])) {
+          walkedTiles[nextRow][nextColumn] = true;
+          queue.add([nextRow, nextColumn]);
+        }
+      }
+    }
+    return false; // no path found
+  }
   // win popup
   void mazeDone() {
     showDialog(
@@ -314,7 +367,8 @@ class _MazePageState extends State<MazePage> {
   }
 
   @override
-  Widget build(BuildContext context) { //la yemshe l keyboard
+  Widget build(BuildContext context) {
+    //la yemshe l keyboard
     return KeyboardListener(
       focusNode: keyboardFocus,
       autofocus: true,
@@ -323,11 +377,11 @@ class _MazePageState extends State<MazePage> {
         if (event is KeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
             movePlayer(-1, 0);
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {movePlayer(1, 0);}
-          else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+            movePlayer(1, 0);
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
             movePlayer(0, -1);
-          }
-          else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
             movePlayer(0, 1);
           }
         }
