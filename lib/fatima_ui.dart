@@ -32,7 +32,23 @@ final Function(int newSize) onGridSizeChange;
     ),
     body: Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: [],
+    children: [Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: DropdownMenu(
+        width: 150,
+        initialSelection: gridSize,
+        onSelected: (value) {
+          if (value is int) onGridSizeChange(value);
+        },
+        dropdownMenuEntries: const [
+          DropdownMenuEntry(value: 6, label: '6 x 6'),
+          DropdownMenuEntry(value: 8, label: '8 x 8'),
+          DropdownMenuEntry(value: 10, label: '10 x 10'),
+          DropdownMenuEntry(value: 12, label: '12 x 12'),
+        ],
+      ),
+    ),
+    ],
     ),
     );
   }
