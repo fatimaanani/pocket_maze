@@ -36,7 +36,7 @@ class MazeUi extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: const Color(0xff1e1e1e),
+        backgroundColor: const Color(0xff262626),
         foregroundColor: const Color(0xff6bb397),
       ),
       body: Column(
