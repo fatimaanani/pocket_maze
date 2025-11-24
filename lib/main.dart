@@ -269,7 +269,8 @@ class _MazePageState extends State<MazePage> {
     }
   }
 
-  List<int> findTile(int tileType) { //find tile location
+  List<int> findTile(int tileType) {
+    //find tile location
     for (int row = 0; row < gridSize; row++) {
       for (int column = 0; column < gridSize; column++) {
         if (grid[row][column] == tileType) return [row, column]; //hay finds it
@@ -277,27 +278,29 @@ class _MazePageState extends State<MazePage> {
     }
     return [-1, -1]; // if not found
   }
-// check if player can walk on this tile
+
+  // check if player can walk on this tile
   bool canMove(int tile) {
     if (tile == 1) return false; // wall
     if (tile == 5) return false; // kill trap
     if (tile == 6) return false; // return trap
     return true; // walkable
   }
+
   //checks eza fii a clear path from player to key to exit
   bool validPath(int startRow, int startColumn, int targetTile) {
     List<List<bool>> walkedTiles = List.generate(
       gridSize,
-          (_) => List.generate(gridSize, (_) => false),
+      (_) => List.generate(gridSize, (_) => false),
     ); // visited tiles
     List<List<int>> queue = [];
     queue.add([startRow, startColumn]); // start point
     walkedTiles[startRow][startColumn] = true;
     List<List<int>> directions = [
       [-1, 0], // up
-      [1, 0],  // down
+      [1, 0], // down
       [0, -1], // left
-      [0, 1],  // right
+      [0, 1], // right
     ];
     while (queue.isNotEmpty) {
       List<int> current = queue.removeAt(0);
@@ -308,8 +311,11 @@ class _MazePageState extends State<MazePage> {
       for (var directions in directions) {
         int nextRow = row + directions[0];
         int nextColumn = column + directions[1];
-      // no clear path, out of bounds
-    if (nextRow < 0 || nextRow >= gridSize || nextColumn < 0 || nextColumn >= gridSize) {
+        // no clear path, out of bounds
+        if (nextRow < 0 ||
+            nextRow >= gridSize ||
+            nextColumn < 0 ||
+            nextColumn >= gridSize) {
           continue;
         }
         // walkable + not visited
@@ -322,6 +328,7 @@ class _MazePageState extends State<MazePage> {
     }
     return false; // no path found
   }
+
   // win popup
   void mazeDone() {
     showDialog(
