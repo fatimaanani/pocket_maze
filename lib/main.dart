@@ -56,25 +56,13 @@ class _MazePageState extends State<MazePage> {
     grid[0][0] = 4; // start position lal player
 
     // safe zone kermel player moves safely
-    if (gridSize > 1) {
-      grid[0][1] = 0;
-      grid[1][0] = 0;
-      grid[1][1] = 0;
-    }
-
+    newSafeZone();
     fixedWalls(); // manual walls we placed
     randomWalls(); // extra random walls
     trapsPlacing(); // traps kellon
+    newSafeZone();
     randomTiles(2); // key
     randomTiles(3); // exit
-
-    // to prevent random walls ny mistkee
-    if (gridSize > 1) {
-      grid[0][1] = 0;
-      grid[1][0] = 0;
-      grid[1][1] = 0;
-    }
-
     setState(() {});
   }
 
@@ -370,6 +358,13 @@ class _MazePageState extends State<MazePage> {
         );
       },
     );
+  }
+  void newSafeZone() {
+    if (gridSize > 1) {
+      if (grid[0][1] != 4) grid[0][1] = 0;
+      if (grid[1][0] != 4) grid[1][0] = 0;
+      if (grid[1][1] != 4) grid[1][1]=0;
+    }
   }
 
   @override
